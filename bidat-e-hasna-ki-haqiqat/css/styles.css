@@ -7,13 +7,14 @@ h2{
   }
 
  h3{
-    font-size:15px;
-    /*font-size : clamp(1.6rem, 6vw, 2.2rem);*/
+    
+    font-size : clamp(1.6rem, 6vw, 2.2rem);
   }
   
   
   blockquote, li, p {
-    font-size : clamp(15px, 4vw, 2.2rem);
+    font-size:15px;
+    /*font-size : clamp(15px, 4vw, 2.2rem);*/
   }
 
 :root {
