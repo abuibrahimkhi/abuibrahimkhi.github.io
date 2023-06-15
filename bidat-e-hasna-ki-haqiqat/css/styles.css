@@ -43,11 +43,9 @@ body {
 
 p {
     color: var(--text-color);
-    /*font-size: 1.8em;*/
 }
 
 h1 {
-    /*font-size: 4em;*/
     color: var(--h1-text-color);
     background-color: var(--h1-bg-color);
     border-radius: 15px 15px;
@@ -58,7 +56,6 @@ h1 {
 }
 
 h2 {
-    /*font-size: 2.5em;*/
     color: var(--heading-text-color);
     border:var(--h2n3-border) 1px solid;
     border-radius:0 0 20px 20px;
@@ -67,7 +64,6 @@ h2 {
 }
 
 h3 {
-    /*font-size: 2.2em;*/
     color: var(--heading-text-color);
     border: var(--h2n3-border) 1px solid;
     border-radius:0 0 15px 15px;
@@ -76,9 +72,7 @@ h3 {
 }
 
 blockquote {
-    /*font-size: 1.6em;*/
     color: var(--bq-bg-color);
-    /*background-color: var(--bq-bg-color);*/
     padding: 15px;
     margin: 5px;
     border: #6f0a0a 1px solid;
@@ -92,7 +86,6 @@ ul {
 }
 
 li {
-    /*font-size: 1.8em;*/
     color:var(--text-color);
     padding: 20px;
 }
