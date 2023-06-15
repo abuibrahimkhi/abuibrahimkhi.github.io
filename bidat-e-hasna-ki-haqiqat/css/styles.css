@@ -13,7 +13,7 @@ h2{
   
   
   blockquote, li, p {
-    font-size : clamp(1.5rem, 6vw, 2.4rem); /**/
+    font-size : clamp(1.5rem, 6vw, 2rem); /**/
   }
 
 :root {
