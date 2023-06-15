@@ -12,8 +12,7 @@ h2{
   
   
   blockquote, li, p {
-    font-size : 15px;
-    font-size : clamp(1.3rem, 4vw, 2.2rem);
+    font-size : clamp(15px, 4vw, 2.2rem);
   }
 
 :root {
