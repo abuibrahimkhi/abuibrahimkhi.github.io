@@ -3,17 +3,17 @@ h1{
   }
 
 h2{
-    font-size : clamp(1.8rem, 8vw, 2.5rem);
+    font-size : clamp(1.8rem, 8vw, 2.6rem);
   }
 
  h3{
     
-    font-size : clamp(1.6rem, 6vw, 2.2rem);
+    font-size : clamp(1.6rem, 6vw, 2.4rem);
   }
   
   
   blockquote, li, p {
-    font-size : clamp(1.6rem, 6vw, 2.2rem); /**/
+    font-size : clamp(1.5rem, 6vw, 2.4rem); /**/
   }
 
 :root {
