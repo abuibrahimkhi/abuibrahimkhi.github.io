@@ -149,7 +149,11 @@ a[href^="mailto:"]
         }
 
         blockquote, li, p { 
-            font-size: 14px;
+            font-size: 15px;
+        }
+
+        .subtitle {
+            font-size: 13px;
         }
     }
 }
