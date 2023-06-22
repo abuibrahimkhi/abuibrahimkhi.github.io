@@ -1,3 +1,17 @@
+:root {
+    --h1-text-color:#ffffff;
+    --h1-bg-color:#002f3f;
+    --h2n3-border:#002f3f;
+    --heading-text-color: #002f3f;/*  */
+    --heading-bg-color: #ffffff;/*  */
+    --pbg-color: #A63C3C;/*  */
+    --bg-color: #eaeaea;/*  */
+    --text-color : #00203F;/*  */
+    --bq-text-color :#eaeaea;
+    --bq-bg-color :#002f3f;
+    --hadith-ref-color:#6f0a0a;
+}
+
 h1{
     font-size : clamp(2rem, 10vw, 3rem);
   }
@@ -16,20 +30,11 @@ h2{
     font-size : clamp(1.1rem, 6vw, 1.7rem); /**/
   }
 
-:root {
-    --h1-text-color:#ffffff;
-    --h1-bg-color:#002f3f;
-    --h2n3-border:#002f3f;
-    --heading-text-color: #002f3f;/*  */
-    --heading-bg-color: #ffffff;/*  */
-    --pbg-color: #A63C3C;/*  */
-    --bg-color: #eaeaea;/*  */
-    --text-color : #00203F;/*  */
-    --bq-text-color :#eaeaea;
-    --bq-bg-color :#002f3f;
-    --hadith-ref-color:#6f0a0a;
+  .main-title {
+    font-size:22px;
 
 }
+
 
 body {
     
@@ -38,9 +43,6 @@ body {
     background-color: var(--bg-color);
  }
 
- header {
-    
- }
 
 p {
     color: var(--text-color);
