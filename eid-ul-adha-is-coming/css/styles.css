@@ -31,7 +31,7 @@ h2{
   }
 
 span {
-    font-size : clamp(.8rem, 6vw, 1.2rem); /**/
+    font-size : clamp(.8rem, 6vw, 1.5rem); /**/
 }
 
 
