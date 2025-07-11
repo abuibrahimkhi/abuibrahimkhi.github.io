@@ -14,7 +14,7 @@
       <link rel="icon" href="/favicon.ico">
       <link rel="icon" href="/favicon.svg" type="image/svg+xml">
       <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-      <link rel="stylesheet" href="css/styles.css">
+      <link rel="stylesheet" href="../assets/css/styles.css">
       <link href='https://unpkg.com/mehr/mehr-font.css' rel='stylesheet'/>
    </head>
    <body>
@@ -71,7 +71,18 @@
 </blockquote>
 <p>الغرض عاشورہ کے دن کا روزہ ایک سُنت عمل ہے اور احادیثِ رسول ﷺ کی روشنی میں باعثِ ثواب بھی ہے۔</p>
 
-<span class="center-align">❀❀❀❀❀</p>
+<div id="footer"></div>
+<script>
+  fetch('../footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+
+
+<span class="center-align">❀❀❀❀❀</span>
+</div>
 
 
 
