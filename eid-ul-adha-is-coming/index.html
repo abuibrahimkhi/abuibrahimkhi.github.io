@@ -144,7 +144,17 @@
 <p>دعا کہ اللہ رب العزت ہمیں ان دس دنوں کو کما حقہ گزارنے کی توفیق عطا
 فرمائے۔ آمین یا رب العالمین</p>
 
+<hr>
+<div id="footer"></div>
+<script>
+  fetch('/footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
 
+<span class="center-align">🏵️ 🏵️ 🏵️ 🏵️ 🏵️</span>
 
 
 

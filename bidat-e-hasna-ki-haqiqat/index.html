@@ -225,6 +225,15 @@
 <p>تحریر: ابو اِبراہیم<br>رابطہ:
 <a href="mailto:abu.ibrahim.khi@gmail.com">abu.ibrahim.khi@gmail.com</a></p>
 
+<hr>
+<div id="footer"></div>
+<script>
+  fetch('/footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
 
 <!-- Updated June 13, 2023 -->
 
