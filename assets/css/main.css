@@ -1,0 +1,101 @@
+:root {
+  --h1-text-color: #ffffff;
+  --h1-bg-color: #002f3f;
+  --h2n3-border: #002f3f;
+  --heading-text-color: #002f3f;
+  --heading-bg-color: #ffffff;
+  --pbg-color: #A63C3C;
+  --bg-color: #eaeaea;
+  --text-color: #00203F;
+  --bq-text-color: #eaeaea;
+  --bq-bg-color: #002f3f;
+  --had-ref-color: #6f0a0a;
+}
+
+
+.article-section {
+  max-width: 800px;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.article-card {
+  background: var(--heading-bg-color);
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border-left: 5px solid var(--h2n3-border);
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.index-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--h2n3-border);
+  text-decoration: none;
+}
+
+.index-title:hover {
+  text-decoration: underline;
+  color: var(--hadith-ref-color);
+}
+
+.narration {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-top: 0.3rem;
+}
+
+.tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-size: 0.85rem;
+  padding: 0.35em 0.8em;
+  border-radius: 50px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: default;
+  border: 1px solid var(--h2n3-border);
+}
+
+.tag:hover {
+  background-color: var(--h2n3-border);
+  color: var(--bq-text-color);
+}
+
+
+@media (max-width: 600px) {
+  body {
+    padding: 1rem;
+  }
+
+  .article-card {
+    padding: 1.2rem 1rem;
+  }
+
+  .index-title {
+    font-size: 1.25rem;
+  }
+
+  .narration {
+    font-size: 0.95rem;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    padding: 0.3em 0.7em;
+  }
+}
