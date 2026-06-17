@@ -32,7 +32,7 @@
     background:var(--paper);
     color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    direction:rtl; /* UI chrome reads LTR even though page is RTL doc; we set explicit dir on Urdu pieces */
+    direction:ltr; /* UI chrome reads LTR even though page is RTL doc; we set explicit dir on Urdu pieces */
   }
 
   .app{max-width:980px;margin:0 auto;padding:0 18px 48px;}
@@ -65,14 +65,12 @@
     margin:0;
     direction:rtl;
     font-weight:600;
-    display: inline-block;
   }
-  .brand-text-english{
-    margin:2px;
-    float: left;
+  .brand-text p{
+    margin:2px 0 0;
     font-size:13px;
     color:#C9D2D0;
-
+    direction:ltr;
   }
 
   .topbar-actions{display:flex; align-items:center; gap:10px; }
@@ -233,24 +231,21 @@
 
   <header class="topbar">
 
-
-    <div class="brand">
-      
-      <div class="brand-text">
-        <span class="brand-mark">ظ</span>
-        <h1>ظہیر اردو فونیٹک ایڈیٹر</h1>
-        
-      </div>
-      
-    </div>
-        <div class="topbar-actions">
+    <div class="topbar-actions">
       <span class="switch-label" id="phoneticLabel">Phonetic Keyboard: ON</span>
       <label class="switch">
         <input type="checkbox" id="phoneticToggle" checked>
         <span class="slider"></span>
       </label>
     </div>
-    <p class="brand-text-english">Zaheer Urdu Phonetic Editor — Type on an English keyboard, write in Urdu</p>
+    <div class="brand">
+      
+      <div class="brand-text">
+        <h1>ظہیر اردو فونیٹک ایڈیٹر</h1>
+        <p>Zaheer Urdu Phonetic Editor — type on an English keyboard, write in Urdu</p>
+      </div>
+      <span class="brand-mark">ظ</span>
+    </div>
   </header>
 
   <div class="toolbar-row">
@@ -336,8 +331,7 @@
       </table>
     </div>
 
-    <p class="sub" style="margin:0 0 10px;">Numbers and other symbols not listed above type normally.</p>
-    <p class="sub" style="margin:0;"><b>On a phone:</b> letters and basic punctuation (، ۔ ؛ ؟) convert automatically as you type — switch the toggle above by tapping it. For the diacritic marks above, open your keyboard's symbols page and tap the substitute symbol shown (e.g. <b>&lt;</b> for ِ, <b>&gt;</b> for َ, <b>}</b> for ّ) instead of using Shift. For the cleanest results, turn off predictive text/autocorrect in your keyboard settings — tapping a suggested word inserts it as plain English.</p>
+    <p class="sub" style="margin:0;">Numbers and other symbols not listed above type normally. This works best with a physical keyboard on a laptop or desktop — touch-screen keyboards aren't supported yet.</p>
   </section>
 
   <p class="footer">Works fully offline once the page has loaded · No Urdu language pack needed on the machine · SyncedPixels</p>
@@ -381,37 +375,6 @@
     return null;
   }
 
-  // ---------- Character-based map (used for the mobile / virtual-keyboard path) ----------
-  // Android/Chrome and Android/Firefox soft keyboards usually don't report a usable
-  // physical key code (e.code), so BASE_MAP/SHIFT_MAP above can't be used on phones.
-  // Instead, this map keys directly off the literal character the browser is about
-  // to insert (case already distinguishes base vs. "shift"), read from the native
-  // beforeinput event, which mobile keyboards do report correctly.
-  var CHAR_MAP = {
-    a:"ا", b:"ب", c:"چ", d:"د", e:"ع", f:"ف", g:"گ", h:"ھ", i:"ی", j:"ج", k:"ک",
-    l:"ل", m:"م", n:"ن", o:"ہ", p:"پ", q:"ق", r:"ر", s:"س", t:"ت", u:"ئ", v:"ط",
-    w:"و", x:"ش", y:"ے", z:"ز",
-    A:"آ", B:"﷽", C:"ث", D:"ڈ", G:"غ", H:"ح", I:"ٰ", J:"ض", K:"خ", N:"ں", O:"ۃ",
-    P:"ُ", Q:"ﷺ", R:"ڑ", S:"ص", T:"ٹ", U:"ء", V:"ظ", W:"ؤ", X:"ژ", Y:"ۓ", Z:"ذ",
-    // typed directly, no symbol-page switch needed
-    ",":"،", ".":"۔", ";":"؛", "?":"؟",
-    // on a phone, switch to the keyboard's symbols page and tap these directly
-    // instead of using Shift (there's no physical Shift key on a touchscreen)
-    "<":"ِ", ">":"َ", "}":"ّ", "]":"ْ", "[":"ٌ", "_":"ـ", "~":"ً", "`":"ٍ",
-    "=":"ٓ", "+":"ۤ"
-  };
-
-  function getMappedChar(ch){
-    if (Object.prototype.hasOwnProperty.call(CHAR_MAP, ch)) return CHAR_MAP[ch];
-    // unmapped capital letter -> fall back to its base (lowercase) Urdu letter,
-    // so phonetic mode never leaks a stray Latin character into Urdu text
-    if (ch.length === 1 && ch >= "A" && ch <= "Z"){
-      var lower = ch.toLowerCase();
-      if (Object.prototype.hasOwnProperty.call(CHAR_MAP, lower)) return CHAR_MAP[lower];
-    }
-    return null;
-  }
-
   // ---------- State ----------
   var phoneticEnabled = localStorage.getItem(PREF_KEY) !== "0";
   var saveTimer = null;
@@ -446,6 +409,10 @@
       flashToast(on ? "Phonetic Keyboard: ON (Urdu)" : "Phonetic Keyboard: OFF (English)");
     }
   }
+
+ // function isToggleShortcut(e){
+   // return (e.ctrlKey || e.metaKey) && !e.altKey && e.code === "Space";
+  //}
 
   function isToggleShortcut(e) {
     return e.ctrlKey && e.altKey && e.code === "Space";
@@ -546,25 +513,6 @@
       var saved = localStorage.getItem(STORAGE_KEY);
       if (saved) editor.setContent(saved);
       updateCounts(editor);
-
-      // Mobile path: Android Chrome/Firefox virtual keyboards usually don't report
-      // a usable e.code on keydown, so the desktop interception above silently does
-      // nothing there. beforeinput still reports the real inserted character even
-      // when keydown can't, so we use it as a parallel, mobile-safe mechanism.
-      // (On desktop this never double-fires: preventDefault() on keydown above
-      // already stops beforeinput from being dispatched for that same keystroke.)
-      try{
-        editor.getBody().addEventListener("beforeinput", function(e){
-          if (!phoneticEnabled) return;
-          if (e.inputType !== "insertText" && e.inputType !== "insertCompositionText" && e.inputType !== "insertReplacementText") return;
-          var data = e.data;
-          if (!data || data.length !== 1) return;
-          var mapped = getMappedChar(data);
-          if (mapped === null) return;
-          e.preventDefault();
-          editor.insertContent(mapped);
-        }, true);
-      }catch(err){}
     }
   });
 
