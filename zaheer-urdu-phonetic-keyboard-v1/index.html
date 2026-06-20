@@ -451,6 +451,43 @@
     return e.ctrlKey && e.altKey && e.code === "Space";
   }
 
+  // ---------- Word autocorrect (e.g. اللہ -> اللّٰہ) ----------
+  // Plain "alef-lam-lam-heh" is what phonetic typing naturally produces, but the
+  // respectful/calligraphic spelling of Allah adds a shadda + superscript alef on
+  // the second lam: <alef, lam, lam, shadda, superscript-alef, heh>. This is the
+  // sequence recommended by Unicode/SIL font documentation for forming the Allah
+  // ligature correctly. Add more find/replace pairs here to extend autocorrect.
+  var AUTOCORRECT_MAP = {
+    "اللہ": "اللّٰہ",   // Urdu heh goal (ہ, U+06C1) — what this keyboard produces
+    "الله": "اللّٰه"    // Arabic heh (ه, U+0647) — covers pasted/Arabic-origin text
+  };
+  var isAutocorrecting = false;
+
+  function tryAutocorrect(editor){
+    if (isAutocorrecting) return;
+    var rng = editor.selection.getRng();
+    if (!rng.collapsed) return;
+    var node = rng.startContainer;
+    var offset = rng.startOffset;
+    if (!node || node.nodeType !== 3) return; // only handle plain text nodes
+    var text = node.data;
+    for (var pattern in AUTOCORRECT_MAP){
+      if (!Object.prototype.hasOwnProperty.call(AUTOCORRECT_MAP, pattern)) continue;
+      var plen = pattern.length;
+      if (offset < plen) continue;
+      if (text.slice(offset - plen, offset) === pattern){
+        isAutocorrecting = true;
+        var replaceRng = editor.dom.createRng();
+        replaceRng.setStart(node, offset - plen);
+        replaceRng.setEnd(node, offset);
+        editor.selection.setRng(replaceRng);
+        editor.selection.setContent(AUTOCORRECT_MAP[pattern]);
+        isAutocorrecting = false;
+        return; // one substitution per keystroke is enough
+      }
+    }
+  }
+
 
   phoneticToggle.checked = phoneticEnabled;
   phoneticLabel.textContent = "Phonetic Keyboard: " + (phoneticEnabled ? "ON" : "OFF");
@@ -536,6 +573,7 @@
 
       editor.on("keyup input Undo Redo", function(e){
         if (e && e.type === "keyup" && isToggleShortcut(e)) return; // mode switch, not a content change
+        if (!isAutocorrecting) tryAutocorrect(editor);
         updateCounts(editor);
         scheduleSave(editor);
       });
